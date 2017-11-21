@@ -1,14 +1,14 @@
 import java.util.Locale
 
 libraryDependencies ++= Seq(
-  "org.scala-sbt" % "scripted-plugin" % sbtVersion.value,
+  "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value,
   "com.typesafe" % "config" % "1.3.1"
 )
 
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.6")
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.1")
+addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.1.0")
 addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.1")
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "1.1")
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.0")
 addSbtPlugin("com.lightbend" % "sbt-whitesource" % "0.1.5")
 
 lazy val build = (project in file(".")).
@@ -21,3 +21,5 @@ lazy val build = (project in file(".")).
   )
 
 unmanagedSourceDirectories in Compile += baseDirectory.value.getParentFile / "src" / "main" / "scala"
+
+resolvers += Resolver.sonatypeRepo("releases")

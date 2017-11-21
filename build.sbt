@@ -13,7 +13,7 @@ addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % sbtSonatypeVersion)
 addSbtPlugin("com.lightbend" % "sbt-whitesource" % sbtWhitesourceVersion)
 
 libraryDependencies ++= Seq(
-  "org.scala-sbt" % "scripted-plugin" % scriptedPluginVersion,
+  "org.scala-sbt" %% "scripted-plugin" % scriptedSbt.value,
   "com.typesafe" % "config" % configVersion
 )
 
@@ -25,8 +25,10 @@ playBuildRepoName in ThisBuild := "interplay"
 
 sbtPlugin := true
 
-sbtVersion := "0.13.16"
+sbtVersion := "1.0.2"
 
-crossSbtVersions := Seq("0.13.16")
+crossSbtVersions := Seq("0.13.16", "1.0.2")
+
+scalaVersion := "2.12.4"
 
 addCommandAlias("validate", ";clean;test;scripted")

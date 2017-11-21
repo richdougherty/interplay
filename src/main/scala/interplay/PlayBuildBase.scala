@@ -158,13 +158,12 @@ object PlaySbtPluginBase extends AutoPlugin {
 
   import PlayBuildBase.autoImport._
 
-  override def projectSettings = ScriptedPlugin.scriptedSettings ++ Seq(
-    ScriptedPlugin.scriptedLaunchOpts += (version apply { v => s"-Dproject.version=$v" }).value,
+  override def projectSettings = ScriptedPlugin.projectSettings ++ Seq(
+    ScriptedPlugin.autoImport.scriptedLaunchOpts += (version apply { v => s"-Dproject.version=$v" }).value,
     sbtPlugin := true,
     publishTo := {
-      if (isSnapshot.value) {
-        Some(Opts.resolver.sonatypeSnapshots)
-      } else publishTo.value
+      val prevPublishTo = publishTo.value
+      if (isSnapshot.value) Some(Opts.resolver.sonatypeSnapshots) else prevPublishTo
     },
 
     publishMavenStyle := isSnapshot.value,
@@ -227,8 +226,8 @@ object PlayReleaseBase extends AutoPlugin {
   import PlayBuildBase.autoImport._
 
   override def projectSettings = Seq(
-    playBuildExtraPublish := (),
-    playBuildExtraTests := (),
+    playBuildExtraPublish := (()),
+    playBuildExtraTests := (()),
 
     // Release settings
     releasePublishArtifactsAction := PgpKeys.publishSigned.value,
