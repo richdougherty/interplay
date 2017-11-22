@@ -130,6 +130,10 @@ private object PlaySbtBuildBase extends AutoPlugin {
 
   override def projectSettings = Seq(
     crossScalaVersions := Seq(ScalaVersions.scala210, ScalaVersions.scala212),
+    sbtVersion := choose(scalaBinaryVersion.value)(
+      forScala210 = SbtVersions.sbt013,
+      forScala212 = SbtVersions.sbt10
+    ),
     sbtVersion in pluginCrossBuild := choose(scalaBinaryVersion.value)(
       forScala210 = SbtVersions.sbt013,
       forScala212 = SbtVersions.sbt10
